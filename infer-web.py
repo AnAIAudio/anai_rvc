@@ -1609,9 +1609,9 @@ with gr.Blocks(title="RVC WebUI") as app:
                 gr.Markdown(traceback.format_exc())
 
     if config.iscolab:
-        app.queue(concurrency_count=511, max_size=1022).launch(share=True, root_path="/rvc")
+        app.queue(max_size=1022).launch(share=True, root_path="/rvc")
     else:
-        app.queue(concurrency_count=511, max_size=1022).launch(
+        app.queue(max_size=1022).launch(
             server_name="0.0.0.0",
             inbrowser=not config.noautoopen,
             server_port=config.listen_port,
