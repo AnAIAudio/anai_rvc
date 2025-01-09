@@ -1219,9 +1219,7 @@ with gr.Blocks(title="RVC WebUI") as app:
                     )
                     # file_output = gr.File()
                     upload_button = gr.UploadButton(
-                        "Click to Upload a File",
-                        file_types=["audio"],
-                        file_count="multiple",
+                        "Click to Upload a File", file_types=["audio"]
                     )
                     upload_button.upload(upload_to_anai, upload_button, trainset_dir4)
 
@@ -1620,12 +1618,11 @@ with gr.Blocks(title="RVC WebUI") as app:
                 gr.Markdown(traceback.format_exc())
 
     if config.iscolab:
-        app.queue(max_size=1022).launch(share=True, root_path="/rvc")
+        app.queue(max_size=1022).launch(share=True)
     else:
         app.queue(max_size=1022).launch(
             server_name="0.0.0.0",
             inbrowser=not config.noautoopen,
             server_port=config.listen_port,
             quiet=True,
-            root_path="/rvc",
         )
