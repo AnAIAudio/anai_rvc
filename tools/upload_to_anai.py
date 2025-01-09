@@ -15,6 +15,6 @@ def upload_to_anai(file):
             os.makedirs(upload_path, exist_ok=True)
 
         shutil.copy(file, upload_path)
-    gr.Info("File Uploaded!!!")
+    # gr.Info("File Uploaded!!!")
 
     return upload_path
