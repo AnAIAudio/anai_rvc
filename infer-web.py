@@ -4,6 +4,8 @@ import uuid
 
 from dotenv import load_dotenv
 
+from tools.upload_to_anai import upload_to_anai
+
 now_dir = os.getcwd()
 sys.path.append(now_dir)
 load_dotenv()
@@ -1213,6 +1215,11 @@ with gr.Blocks(title="RVC WebUI") as app:
                         label=i18n("输入训练文件夹路径"),
                         value=i18n("E:\\语音音频+标注\\米津玄师\\src"),
                     )
+                    file_output = gr.File()
+                    upload_button = gr.UploadButton("Click to Upload a File", file_types=["audio"],
+                                                    file_count="multiple")
+                    upload_button.upload(upload_to_anai, upload_button, file_output)
+
                     spk_id5 = gr.Slider(
                         minimum=0,
                         maximum=4,
