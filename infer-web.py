@@ -1617,12 +1617,27 @@ with gr.Blocks(title="RVC WebUI") as app:
             except:
                 gr.Markdown(traceback.format_exc())
 
+    load_dotenv()
+    run_env = os.getenv("run_env", "development")
+
     if config.iscolab:
-        app.queue(max_size=1022).launch(share=True)
+        if run_env == "development":
+            app.queue(max_size=1022).launch(share=True)
+        else:
+            app.queue(max_size=1022).launch(share=True, root_path="/rvc")
     else:
-        app.queue(max_size=1022).launch(
-            server_name="0.0.0.0",
-            inbrowser=not config.noautoopen,
-            server_port=config.listen_port,
-            quiet=True,
-        )
+        if run_env == "development":
+            app.queue(max_size=1022).launch(
+                server_name="0.0.0.0",
+                inbrowser=not config.noautoopen,
+                server_port=config.listen_port,
+                quiet=True,
+            )
+        else:
+            app.queue(max_size=1022).launch(
+                server_name="0.0.0.0",
+                inbrowser=not config.noautoopen,
+                server_port=config.listen_port,
+                quiet=True,
+                root_path="/rvc",
+            )
