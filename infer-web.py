@@ -1457,10 +1457,13 @@ with gr.Blocks(title="RVC WebUI") as app:
 
                         return zip_file_path
 
+                    file_output = gr.File()
                     download_button = gr.Button(
                         variant="primary", value="download files"
                     )
-                    download_button.click(downlaod_file, [exp_dir1])
+                    download_button.click(
+                        fn=downlaod_file, inputs=[exp_dir1], outputs=file_output
+                    )
 
         with gr.TabItem(i18n("ckpt处理")):
             with gr.Group():
