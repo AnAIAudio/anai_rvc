@@ -63,7 +63,7 @@ if config.dml == True:
         return res
 
     fairseq.modules.grad_multiply.GradMultiply.forward = forward_dml
-i18n = I18nAuto()
+i18n = I18nAuto(language="ko_KR")
 logger.info(i18n)
 # 判断是否有能用来训练和加速推理的N卡
 ngpu = torch.cuda.device_count()
@@ -1348,12 +1348,12 @@ with gr.Blocks(title="RVC WebUI") as app:
                 with gr.Row():
                     pretrained_G14 = gr.Textbox(
                         label=i18n("加载预训练底模G路径"),
-                        value="assets/pretrained_v2/f0G40k.pth",
+                        value="",
                         interactive=True,
                     )
                     pretrained_D15 = gr.Textbox(
                         label=i18n("加载预训练底模D路径"),
-                        value="assets/pretrained_v2/f0D40k.pth",
+                        value="",
                         interactive=True,
                     )
                     sr2.change(
