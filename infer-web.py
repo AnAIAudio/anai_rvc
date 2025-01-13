@@ -1432,39 +1432,35 @@ with gr.Blocks(title="RVC WebUI") as app:
             with gr.Group():
                 gr.Markdown(value="완성된 모델 다운로드")
                 with gr.Row():
-                    import glob
 
-                    import zipfile
+                    def downlaod_file(exp_dir1):
+                        import glob
+                        import zipfile
 
-                    pth_path = os.path.join("assets", "weights")
-                    pth_file_list = glob.glob(pth_path + f"/{exp_dir1.value}*.pth")
-                    # /assets/weights/*.pth
-                    # /logs/*/*.index
-                    index_path = os.path.join("logs", exp_dir1.value)
-                    index_file_list = glob.glob(index_path + f"/*.index")
+                        pth_path = os.path.join("assets", "weights")
+                        pth_file_list = glob.glob(pth_path + f"/{exp_dir1}*.pth")
 
-                    # Combine all files into a single zip file
-                    download_path = os.path.join(
-                        "assets", "weights_download"
-                    )  # "assets/weights_download"
-                    if not os.path.exists(download_path):
-                        os.makedirs(download_path, exist_ok=True)
+                        index_path = os.path.join("logs", exp_dir1)
+                        index_file_list = glob.glob(index_path + f"/*.index")
 
-                    zip_file_path = os.path.join(
-                        download_path, f"{exp_dir1.value}_files.zip"
+                        # Combine all files into a single zip file
+                        download_path = os.path.join("assets", "weights_download")
+                        if not os.path.exists(download_path):
+                            os.makedirs(download_path, exist_ok=True)
+
+                        zip_file_path = os.path.join(
+                            download_path, f"{exp_dir1}_files.zip"
+                        )
+                        with zipfile.ZipFile(zip_file_path, "w") as zipf:
+                            for file in pth_file_list + index_file_list:
+                                zipf.write(file)
+
+                        return zip_file_path
+
+                    download_button = gr.Button(
+                        variant="primary", value="download files"
                     )
-                    with zipfile.ZipFile(zip_file_path, "w") as zipf:
-                        for file in pth_file_list + index_file_list:
-                            zipf.write(
-                                file,
-                                os.path.relpath(file, start=os.path.dirname(pth_path)),
-                            )
-
-                    print("test")
-
-                    gr.Button(
-                        value=f"Download Index file", link=zip_file_path, visible=True
-                    )
+                    download_button.click(downlaod_file, [exp_dir1])
 
         with gr.TabItem(i18n("ckpt处理")):
             with gr.Group():
