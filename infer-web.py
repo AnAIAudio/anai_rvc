@@ -1215,7 +1215,7 @@ with gr.Blocks(title="RVC WebUI") as app:
                 with gr.Row():
                     trainset_dir4 = gr.Textbox(
                         label=i18n("输入训练文件夹路径"),
-                        value=i18n("E:\\语音音频+标注\\米津玄师\\src"),
+                        value=i18n(""),
                     )
                     # file_output = gr.File()
                     upload_button = gr.UploadButton(
@@ -1304,7 +1304,7 @@ with gr.Blocks(title="RVC WebUI") as app:
                         maximum=50,
                         step=1,
                         label=i18n("保存频率save_every_epoch"),
-                        value=5,
+                        value=50,
                         interactive=True,
                     )
                     total_epoch11 = gr.Slider(
@@ -1312,7 +1312,7 @@ with gr.Blocks(title="RVC WebUI") as app:
                         maximum=1000,
                         step=1,
                         label=i18n("总训练轮数total_epoch"),
-                        value=20,
+                        value=1000,
                         interactive=True,
                     )
                     batch_size12 = gr.Slider(
@@ -1326,7 +1326,7 @@ with gr.Blocks(title="RVC WebUI") as app:
                     if_save_latest13 = gr.Radio(
                         label=i18n("是否仅保存最新的ckpt文件以节省硬盘空间"),
                         choices=[i18n("是"), i18n("否")],
-                        value=i18n("否"),
+                        value=i18n("是"),
                         interactive=True,
                     )
                     if_cache_gpu17 = gr.Radio(
@@ -1342,7 +1342,7 @@ with gr.Blocks(title="RVC WebUI") as app:
                             "是否在每次保存时间点将最终小模型保存至weights文件夹"
                         ),
                         choices=[i18n("是"), i18n("否")],
-                        value=i18n("否"),
+                        value=i18n("是"),
                         interactive=True,
                     )
                 with gr.Row():
